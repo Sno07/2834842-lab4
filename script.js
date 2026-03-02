@@ -5,12 +5,9 @@ async function searchCountry(countryName) {
     const borderingCountriesContainer = document.getElementById('bordering-countries');
 
     try {
-
         countryInfo.innerHTML = '';
         borderingCountriesContainer.innerHTML = '';
         errorMessage.classList.add('hidden');
-
-        
         spinner.classList.remove('hidden');
 
         // Fetch country data
@@ -23,7 +20,6 @@ async function searchCountry(countryName) {
         const data = await response.json();
         const country = data[0];
 
-    
         countryInfo.innerHTML = `
             <div class="country-card">
                 <h2>${country.name.common}</h2>
@@ -34,7 +30,6 @@ async function searchCountry(countryName) {
             </div>
         `;
 
-        
         if (country.borders && country.borders.length > 0) {
             for (let code of country.borders) {
                 const borderResponse = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
@@ -53,14 +48,14 @@ async function searchCountry(countryName) {
         }
 
     } catch (error) {
-        
+
         errorMessage.textContent = 'Unable to fetch country data. Please try again.';
         errorMessage.classList.remove('hidden');
     } finally {
+        
         spinner.classList.add('hidden');
     }
 }
-
 
 
 document.getElementById('search-btn').addEventListener('click', () => {
