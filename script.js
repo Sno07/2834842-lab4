@@ -1,16 +1,16 @@
 async function searchCountry(countryName) {
-    const spinner = document.getElementById('spinner');
+    const spinner = document.getElementById('loading-spinner');
     const errorMessage = document.getElementById('error-message');
     const countryInfo = document.getElementById('country-info');
     const borderingCountriesContainer = document.getElementById('bordering-countries');
 
     try {
-        // Clear previous results
+
         countryInfo.innerHTML = '';
         borderingCountriesContainer.innerHTML = '';
         errorMessage.classList.add('hidden');
 
-        // Show loading spinnerssssssssss
+        
         spinner.classList.remove('hidden');
 
         // Fetch country data
@@ -23,7 +23,7 @@ async function searchCountry(countryName) {
         const data = await response.json();
         const country = data[0];
 
-        // Update DOM with country info
+    
         countryInfo.innerHTML = `
             <div class="country-card">
                 <h2>${country.name.common}</h2>
@@ -34,7 +34,7 @@ async function searchCountry(countryName) {
             </div>
         `;
 
-        // Fetch bordering countries
+        
         if (country.borders && country.borders.length > 0) {
             for (let code of country.borders) {
                 const borderResponse = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
@@ -53,17 +53,16 @@ async function searchCountry(countryName) {
         }
 
     } catch (error) {
-        // Show error message
+        
         errorMessage.textContent = 'Unable to fetch country data. Please try again.';
         errorMessage.classList.remove('hidden');
     } finally {
-        // Hide loading spinner
         spinner.classList.add('hidden');
     }
 }
 
 
-// Event listener for button click
+
 document.getElementById('search-btn').addEventListener('click', () => {
     const country = document.getElementById('country-input').value.trim();
     if (country) {
@@ -71,7 +70,7 @@ document.getElementById('search-btn').addEventListener('click', () => {
     }
 });
 
-// Event listener for Enter key
+
 document.getElementById('country-input').addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         const country = event.target.value.trim();
